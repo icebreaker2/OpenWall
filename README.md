@@ -5,5 +5,5 @@ Hier entsteht die Softwarebasis für das OpenWall-Projekt
 Dieser Ordner enthält die MeteorJS-Applikation
 
 ## Asteroid
-Dieser Ordner enthält die Datei boxController.js
+Dieser Ordner enthält die Datei boxController.js<br>
 Ausgeführt mit NODE.js, steuert sie per Johnny-Five den angeschlossenen Arduino (für die LEDs und Motoren)
