@@ -1,0 +1,1 @@
+controller = new Mongo.Collection("controller");

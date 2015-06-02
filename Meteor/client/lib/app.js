@@ -1,0 +1,1 @@
+angular.module("OpenWall", ["ngTouch", "angular-md5", "ui.bootstrap", "angular-meteor", "ui.router"]);

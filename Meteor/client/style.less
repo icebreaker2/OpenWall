@@ -1,0 +1,149 @@
+body, html, .meteorBody {
+	background-color: #d8e1ed;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	 -moz-user-select: none;     /* Firefox all */
+	 -ms-user-select: none;      /* IE 10+ */
+	 -o-user-select: none;
+	 user-select: none;
+	 width: 100%;
+	 height: 100%;
+	 display: table; //For centering controllers
+	 padding-top: 10px;
+	 padding-bottom: 10px;
+}
+
+.controllerFrame {
+
+	display: table-cell; //For centering controllers
+	vertical-align: middle;
+	text-align: center;
+
+	.motorController {
+		
+		margin: 0px auto;
+		width: 100px;
+		text-align: left;
+		
+		.controlArrow {
+			font-size: 7em;
+			color: #ff7f2a;
+			
+			&.active {
+				color: white;
+				text-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+			}
+		}
+	}
+}
+
+#userTicket {
+	text-align: center;
+	height: 60px;
+	font-size: 3em;
+	
+	.code {
+		letter-spacing: 7px;
+	}
+}
+
+.modal-backdrop {
+	bottom: 0;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+	
+	.form-signin-heading, .checkbox {
+		margin-bottom: 10px;
+	}
+	
+	.checkbox {
+		font-weight: normal;
+	}
+	
+	.form-control {
+		position: relative;
+		height: auto;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		padding: 10px;
+		font-size: 16px;
+		
+		&:focus {
+			z-index: 2;
+		}
+	}
+	
+	input[type="email"] {
+		margin-bottom: -1px;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	
+	input[type="password"] {
+		margin-bottom: 10px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+}
+
+.controller {
+	background-color: white;
+	text-align: center;
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px 1px;
+	
+	.settings {
+		float: right;
+		margin-top: 15px;
+	}
+	
+	.motorController {
+		
+		padding-top: 70px;
+		margin: 0px auto;
+		text-align: left;
+		width: 200px;
+		
+		.controlArrow {
+			font-size: 7em;
+			color: #ff7f2a;
+			
+			&.active {
+				color: white;
+				text-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+			}
+		}
+	}
+	
+	.actualPlayers {
+		
+		margin-top: 10px;
+		min-height: 86px;
+	
+		.btn-group {
+			margin:  20px;
+		}
+	}
+	
+	.ticket {
+		letter-spacing: 2px;
+	}
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}

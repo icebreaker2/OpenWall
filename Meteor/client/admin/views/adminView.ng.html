@@ -1,0 +1,102 @@
+<div class="container" ng-hide="$root.currentUser">
+  <form class="form-signin">
+    <h2 class="form-signin-heading">Einloggen</h2>
+    
+    <div class="alert alert-danger fade in" ng-show="authError">
+    	<button type="button" class="close" ng-click="authError = false">×</button>
+    	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Fehlerhafte Nutzerdaten
+    </div>
+    
+    <input type="email" id="inputEmail" class="form-control" placeholder="E-Mail-Adresse" ng-model="email" required autofocus>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Passwort" ng-model="password" required>
+    <div class="checkbox">
+    </div>
+    <input type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" value="Anmelden">
+  </form>
+
+</div> <!-- /container -->
+
+<div class="container" ng-show="$root.currentUser">
+	<div class="row">
+		<div class="controller col-md-6 col-md-offset-3">
+		
+			<div class="btn-group settings">
+				<button type="button" class="btn btn-success" ng-click="setMotor(1, 0); setMotor(2, 0); moveToStart(!controller.movingToStart)">
+					Fahre zum Start
+					<span ng-if="controller.movingToStart" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+				</button>
+				<div class="btn-group" dropdown>
+					<button type="button" class="btn btn-info dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+						Optionen <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="" ng-click="calibrateStart()">Start kalibrieren</a></li>
+						<li class="divider"></li>
+						<li><a href="" ng-click="logout()">Logout</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="motorController">
+				<span class="controlArrow glyphicon glyphicon-arrow-up" ng-mousedown="setMotor(1, 1);" ng-touchstart="setMotor(1, 1);" ng-mouseup="setMotor(1, 0);" ng-touchend="setMotor(1, 0);" ng-class="{'active' : controller.state1 == 1}"></span>
+				<span class="controlArrow glyphicon glyphicon-arrow-up" ng-mousedown="setMotor(2, 1);" ng-touchstart="setMotor(2, 1);" ng-mouseup="setMotor(2, 0);" ng-touchend="setMotor(2, 0);" ng-class="{'active' : controller.state2 == 1}"></span>
+				
+				<br />
+				
+				<span class="controlArrow glyphicon glyphicon-arrow-down" ng-mousedown="setMotor(1, -1);" ng-touchstart="setMotor(1, -1);" ng-mouseup="setMotor(1, 0);" ng-touchend="setMotor(1, 0);" ng-class="{'active' : controller.state1 == -1}"></span>
+				<span class="controlArrow glyphicon glyphicon-arrow-down" ng-mousedown="setMotor(2, -1);" ng-touchstart="setMotor(2, -1);" ng-mouseup="setMotor(2, 0);" ng-touchend="setMotor(2, 0);" ng-class="{'active' : controller.state2 == -1}"></span>
+				
+			</div>
+		
+			<div class="actualPlayers">
+				<div class="btn-group btn-group-lg" ng-if="controller.player1">
+					<button class="btn btn-primary" disabled>
+						Spieler 1: <span class="ticket">{{getTicketFromId(controller.player1)}}</span>
+					</button>
+					<button class="btn btn-primary" ng-click="setPlayer(1, 0)">
+						<span class="glyphicon glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
+				<div class="btn-group btn-group-lg" ng-if="controller.player2">
+					<button class="btn btn-primary" disabled>
+						Spieler 2: <span class="ticket">{{getTicketFromId(controller.player2)}}</span>
+					</button>
+					<button class="btn btn-primary" ng-click="setPlayer(2, 0)">
+						<span class="glyphicon glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
+			</div>
+			
+			{{connections}}
+			
+			<table class="table" ng-show="(presence | filter:userIsPlaying).length > 0">
+				<thead>
+					<tr>
+						<td>Warteliste</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in presence | filter:userIsPlaying">
+						<td>
+							<h5>{{$index+1}}.</h5>
+						</td>
+						<td>
+							<div class="btn-group">
+								<button class="btn" disabled>Ticket: <span class="ticket">{{ getTicketFromId(user._id) }}</span></button>
+								<button class="btn btn-info"  ng-click="setPlayer(1, user._id)">
+									Spieler 1
+									<span class="glyphicon glyphicon-triangle-right"></span>
+								</button>
+								<button class="btn btn-info" ng-click="setPlayer(2, user._id)">
+									Spieler 2
+									<span class="glyphicon glyphicon-triangle-right"></span>
+								</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
