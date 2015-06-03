@@ -22,7 +22,7 @@ arduino.on("ready", function() {
 			stepsForCheckpoint1: 0,
 			stepsForCheckpoint2: 0,
 			stepsForCheckpoint3: 0,
-			stepsForMaxHeight: 0
+			stepsForMaxHeight: '' // leave max height empty until set
 			
 		}, {
 			stepPin: 12,
@@ -31,7 +31,7 @@ arduino.on("ready", function() {
 			stepsForCheckpoint1: 0,
 			stepsForCheckpoint2: 0,
 			stepsForCheckpoint3: 0,
-			stepsForMaxHeight: 0
+			stepsForMaxHeight: '' // leave max height empty until set
 		}
 	];
 	
@@ -199,7 +199,7 @@ arduino.on("ready", function() {
 			});
 		} else if (motors[0].speed < 0) {
 			// prevent tearing of the line
-			if(motors[0].stepsFromStart < motors[0].stepsForMaxHeight) {
+			if(motors[0].stepsFromStart < motors[0].stepsForMaxHeight || motors[0].stepsForMaxHeight == '') {
 				stepper0.ccw().step(1, function() {
 					motors[0].stepsFromStart++;
 				});
@@ -213,7 +213,7 @@ arduino.on("ready", function() {
 			});
 		} else if (motors[1].speed < 0) {
 			// prevent tearing of the line
-			if(motors[1].stepsFromStart < motors[1].stepsForMaxHeight) {
+			if(motors[1].stepsFromStart < motors[1].stepsForMaxHeight || motors[1].stepsForMaxHeight == '') {
 				stepper1.ccw().step(1, function() {
 					motors[1].stepsFromStart++;
 				});
