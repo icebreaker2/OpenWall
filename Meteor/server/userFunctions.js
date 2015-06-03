@@ -51,6 +51,8 @@ Meteor.methods({
 			});
 		}
 	},
+	/**calibrate different variables and db-entries to recognise changes on those
+	 * the time is a variable to recognise newer entries and making validations in the controller possible**/
 	calibrateStart: function() {
 	
 		var time = new Date();
