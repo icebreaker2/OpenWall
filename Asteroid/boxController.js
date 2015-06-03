@@ -107,6 +107,7 @@ arduino.on("ready", function() {
 			motors[1].stepsForMaxHeight = motors[1].stepsFromStart;
 		}
 
+		// change direction of the stepper-Rotation
 		if (currentControllerState.state1 != controller.result.state1) {
 			motors[0].speed = controller.result.state1 * (-1);
 		}
@@ -159,6 +160,7 @@ arduino.on("ready", function() {
 			}
 		}
 
+		// check for checkpoints reached by the player
 		if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint1-radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1+radius) { // first stepper is in line
 			if(motors[1].stepsFromStart >= motors[1].stepsForCheckpoint1-radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1+radius) { // second stepper is in line to
 				// stepper is in Checkpoint1-Area
@@ -166,8 +168,8 @@ arduino.on("ready", function() {
 			}
 		}
 
-		if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint1-radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1+radius) { // first stepper is in line
-			if(motors[1].stepsFromStart >= motors[1].stepsForCheckpoint1-radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1+radius) { // second stepper is in line to
+		if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint2-radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint2+radius) { // first stepper is in line
+			if(motors[1].stepsFromStart >= motors[1].stepsForCheckpoint2-radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint2+radius) { // second stepper is in line to
 				if(led1.isOn()){
 					// stepper is in Checkpoint2-Area and previous checkedPoints has been passed
 					led2.on();
@@ -175,15 +177,14 @@ arduino.on("ready", function() {
 			}
 		}
 
-		if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint1-radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1+radius) { // first stepper is in line
-			if(motors[1].stepsFromStart >= motors[1].stepsForCheckpoint1-radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1+radius) { // second stepper is in line to
-				if(led1.isOn()){
-					// stepper is in Checkpoint2-Area and previous checkedPoints has been passed
-					led2.on();
+		if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint3-radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint3+radius) { // first stepper is in line
+			if(motors[1].stepsFromStart >= motors[1].stepsForCheckpoint3-radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint3+radius) { // second stepper is in line to
+				if(led2.isOn()){
+					// stepper is in Checkpoint3-Area and previous checkedPoints has been passed
+					led3.on();
 				}
 			}
 		}
-
 
 	currentControllerState = controller.result;
 	});
@@ -195,9 +196,12 @@ arduino.on("ready", function() {
 				motors[0].stepsFromStart--;
 			});
 		} else if (motors[0].speed < 0) {
-			stepper0.ccw().step(1, function() {
-				motors[0].stepsFromStart++;
-			});
+			// prevent tearing of the line
+			if(motors[0].stepsFromStart < motors[0].stepsForMaxHeight) {
+				stepper0.ccw().step(1, function() {
+					motors[0].stepsFromStart++;
+				});
+			}
 		}
 		
 		
@@ -206,10 +210,13 @@ arduino.on("ready", function() {
 				motors[1].stepsFromStart--;
 			});
 		} else if (motors[1].speed < 0) {
-			stepper1.ccw().step(1, function() {
-				motors[1].stepsFromStart++;
-			});
+			// prevent tearing of the line
+			if(motors[1].stepsFromStart < motors[1].stepsForMaxHeight) {
+				stepper1.ccw().step(1, function() {
+					motors[1].stepsFromStart++;
+				});
+			}
 		}
-		
+
 	});
 });
