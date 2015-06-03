@@ -1,6 +1,13 @@
 var Asteroid = require("asteroid");
 var five = require("johnny-five");
 
+var SerialPort = require("serialport").SerialPort;
+var serialPort = new SerialPort('\\\\.\\COM3',{baudrate: 9600}, true);
+
+serialPort.on ('open', function () {
+	console.log("Open");
+});
+
 // Connect to the OpenWall Meteor backend
 var OpenWall = new Asteroid("localhost:3000");
 var collection = OpenWall.getCollection("controller");
@@ -18,12 +25,20 @@ arduino.on("ready", function() {
 		{
 			stepPin: 3,
 			dirPin: 4,
-			stepsFromStart: 0
+			stepsFromStart: 0,
+			stepsForCheckpoint1: 0,
+			stepsForCheckpoint2: 0,
+			stepsForCheckpoint3: 0,
+			stepsForMaxHeight: 0
 			
 		}, {
 			stepPin: 12,
 			dirPin: 13,
-			stepsFromStart: 0
+			stepsFromStart: 0,
+			stepsForCheckpoint1: 0,
+			stepsForCheckpoint2: 0,
+			stepsForCheckpoint3: 0,
+			stepsForMaxHeight: 0
 		}
 	];
 	
@@ -44,15 +59,59 @@ arduino.on("ready", function() {
 		}
 	});
 	
-	controller.on('change', function () {			var led1 = new five.Led(6);			arduino.repl.inject({			led: led1		});				led1.on();				led2 = new five.Led(7);			arduino.repl.inject({			led: led2		});				led2.on();				led3 = new five.Led(8);			arduino.repl.inject({			led: led3		});				led3.on();		  		  
+	controller.on('change', function () {
+	
+		var led1 = new five.Led(6);	
+		arduino.repl.inject({
+			led: led1
+		});
+		
+		led1.on();
+		
+		led2 = new five.Led(7);	
+		arduino.repl.inject({
+			led: led2
+		});
+		
+		led2.on();
+		
+		led3 = new five.Led(8);	
+		arduino.repl.inject({
+			led: led3
+		});
+		
+		led3.on();
+		  
+		  
 		
 		controller.result = controller.result[0];
-		
+
+		// set various locations on the gamefield
 		if (currentControllerState.calibrateStart != controller.result.calibrateStart) {
 			motors[0].stepsFromStart = 0;
 			motors[1].stepsFromStart = 0;
 		}
-	
+
+		if (currentControllerState.calibrateCheckPoint1 != controller.result.calibrateCheckPoint1) {
+			motors[0].stepsForCheckPoint1 = motors[0].stepsFromStart;
+			motors[1].stepsForCheckpoint1 = motors[1].stepsFromStart;
+		}
+
+		if (currentControllerState.calibrateCheckPoint2 != controller.result.calibrateCheckPoint2) {
+			motors[0].stepsForCheckPoint2 = motors[0].stepsFromStart;
+			motors[1].stepsForCheckpoint2 = motors[1].stepsFromStart;
+		}
+
+		if (currentControllerState.calibrateCheckPoint3 != controller.result.calibrateCheckPoint3) {
+			motors[0].stepsForCheckPoint3 = motors[0].stepsFromStart;
+			motors[1].stepsForCheckpoint3 = motors[1].stepsFromStart;
+		}
+
+		if (currentControllerState.calibrateMaxHeight != controller.result.calibrateMaxHeight) {
+			motors[0].stepsForMaxHeight = motors[0].stepsFromStart;
+			motors[1].stepsForMaxHeight = motors[1].stepsFromStart;
+		}
+
 		if (currentControllerState.state1 != controller.result.state1) {
 			motors[0].speed = controller.result.state1 * (-1);
 		}
@@ -60,7 +119,8 @@ arduino.on("ready", function() {
 		if (currentControllerState.state2 != controller.result.state2) {
 			motors[1].speed = controller.result.state2;
 		}
-		
+
+		// fall back to startingPoint
 		if (currentControllerState.movingToStart != controller.result.movingToStart) {
 			if(controller.result.movingToStart == true) {
 				
@@ -119,7 +179,8 @@ arduino.on("ready", function() {
 			stepper0.ccw().step(1, function() {
 				motors[0].stepsFromStart++;
 			});
-		}		
+		}
+		
 		
 		if (motors[1].speed > 0) {
 			stepper1.cw().step(1, function() {
@@ -129,6 +190,7 @@ arduino.on("ready", function() {
 			stepper1.ccw().step(1, function() {
 				motors[1].stepsFromStart++;
 			});
-		}		
+		}
+		
 	});
 });

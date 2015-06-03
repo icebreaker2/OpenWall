@@ -43,7 +43,7 @@ Meteor.methods({
 		}
 	},
 	moveToStart: function(value) {
-		
+
 		//User logged in?
 		if (this.userId) {
 			controller.update("controller", {
@@ -55,13 +55,54 @@ Meteor.methods({
 	
 		var time = new Date();
 		time = time.getTime();
-		
+
 		//User logged in?
 		if (this.userId) {
 			controller.update("controller", {
 			  $set: {calibrateStart: time}
 			});
 		}
-		
+	},
+	calibrateCheckPoint1: function() {
+		var time = new Date();
+		time = time.getTime();
+		//User logged in?
+		if (this.userId) {
+			controller.update("controller", {
+				$set: {calibrateCheckPoint1: time}
+			});
+		}
+	},
+	calibrateCheckPoint2: function () {
+		var time = new Date();
+		time = time.getTime();
+		//User logged in?
+		if (this.userId) {
+			controller.update("controller", {
+				$set: {calibrateCheckPoint2: time}
+			});
+		}
+	},
+	calibrateCheckPoint3: function () {
+		var time = new Date();
+		time = time.getTime();
+		//User logged in?
+		if (this.userId) {
+			controller.update("controller", {
+				$set: {calibrateCheckPoint3: time}
+			});
+		}
+
+	},
+	calibrateMaxHeight: function () {
+		var time = new Date();
+		time = time.getTime();
+		//User logged in?
+		if (this.userId) {
+			controller.update("controller", {
+				$set: {calibrateMaxHeight: time}
+			});
+		}
 	}
+
 });

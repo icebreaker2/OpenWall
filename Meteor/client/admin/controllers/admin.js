@@ -10,11 +10,12 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 	});
 	
 	$scope.login = function() {
-	
+
 		Meteor.loginWithPassword($scope.email, $scope.password,
 			function(error) {
-			
+
 				if (error) {
+					console.log(error)
 					$scope.authError = true;
 				} else {
 					$scope.email = null;
@@ -23,12 +24,12 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 				}
 			}
 		);
-	}
+	};
 	
 	$scope.logout = function() {
 		alert("Logout");
 		Meteor.logout();
-	}
+	};
 	
 	$scope.setMotor = function(motorNr, level) {
 		Meteor.call("setMotor", motorNr, level);
@@ -39,7 +40,7 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 		} else if (motorNr == 2) {
 			$scope.controller.state2 = level;
 		}
-	}
+	};
 	
 	$scope.setPlayer = function(nr, user) {
 		Meteor.call("setPlayer", nr, user);
@@ -50,19 +51,40 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 		} else if (nr == 2) {
 			$scope.controller.player2 = user;
 		}
-	}
-	
+	};
+
+	/**Calibrate various points on the Playing-Field**/
 	$scope.moveToStart = function(value) {
 		Meteor.call("moveToStart", value);
 		
 		//For direct response
 		$scope.controller.movingToStart = value;
-	}
+	};
 	
 	$scope.calibrateStart = function() {
 		Meteor.call("calibrateStart");
+	};
+
+	$scope.calibrateCheckPoint1 = function () {
+		$meteor.object(controller, 'controller', false);
+
+		$meteor
+
+		Meteor.call("calibrateCheckPoint1");
+	};
+
+	$scope.calibrateCheckPoint2 = function () {
+		Meteor.call("calibrateCheckPoint2");
+	};
+
+	$scope.calibrateCheckPoint3 = function () {
+		Meteor.call("calibrateCheckPoint3");
+	};
+
+	$scope.calibrateMaxHeight = function (){
+		Meteor.call("calibrateMaxHeight");
 	}
-	
+
 	//Function is used to filter the current players from the users list
 	$scope.userIsPlaying = function(item) {
 	
@@ -77,14 +99,14 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 			}
 		}
 		return false;
-	}
+	};
 
 	//Calculates a 4 digit ticket id from the session id
 	$scope.getTicketFromId = function(uid) {
 		var userTicket = "000" + parseInt(md5.createHash(uid), 16) % 9999;
 		userTicket = userTicket.substr(userTicket.length-4);
 		return userTicket;
-	}
+	};
 	
 	//Delete user from Controller when he disconnects
 	$scope.$watchCollection('presence', function(newSessions, oldSessions) {

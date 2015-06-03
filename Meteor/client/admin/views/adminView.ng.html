@@ -8,7 +8,7 @@
     </div>
     
     <input type="email" id="inputEmail" class="form-control" placeholder="E-Mail-Adresse" ng-model="email" required autofocus>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Passwort" ng-model="password" required>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Passwort" ng-model="password">
     <div class="checkbox">
     </div>
     <input type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" value="Anmelden">
@@ -31,6 +31,10 @@
 					</button>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="" ng-click="calibrateStart()">Start kalibrieren</a></li>
+						<li><a href="" ng-click="calibrateCheckPoint1()">Checkpoint 1 kalibrieren</a></li>
+						<li><a href="" ng-click="calibrateCheckPoint2()">Checkpoint 2 kalibrieren</a></li>
+						<li><a href="" ng-click="calibrateCheckPoint3()">Checkpoint 3 kalibrieren</a></li>
+						<li><a href="" ng-click="calibrateMaxHeight()">Maximalhöhe kalibrieren</a></li>
 						<li class="divider"></li>
 						<li><a href="" ng-click="logout()">Logout</a></li>
 					</ul>
