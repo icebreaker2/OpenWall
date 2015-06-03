@@ -61,23 +61,24 @@ arduino.on("ready", function() {
 
 	// radius for the checkPoint in steps relative to the stepperMotor
 	var radius = stepper1.stepsPerRev*0.5;
-	
+
+	// Checkpoint LED's
+	var led1 = new five.Led(6);
+	arduino.repl.inject({
+		led: led1
+	});
+
+	var led2 = new five.Led(7);
+	arduino.repl.inject({
+		led: led2
+	});
+
+	var led3 = new five.Led(8);
+	arduino.repl.inject({
+		led: led3
+	});
+
 	controller.on('change', function () {
-	
-		var led1 = new five.Led(6);	
-		arduino.repl.inject({
-			led: led1
-		});
-		
-		led2 = new five.Led(7);
-		arduino.repl.inject({
-			led: led2
-		});
-		
-		led3 = new five.Led(8);
-		arduino.repl.inject({
-			led: led3
-		});
 		
 		controller.result = controller.result[0];
 
@@ -160,6 +161,11 @@ arduino.on("ready", function() {
 			}
 		}
 
+	currentControllerState = controller.result;
+	});
+ 
+	this.loop(3, function() {
+
 		// check for checkpoints reached by the player
 		if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint1-radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1+radius) { // first stepper is in line
 			if(motors[1].stepsFromStart >= motors[1].stepsForCheckpoint1-radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1+radius) { // second stepper is in line to
@@ -185,11 +191,6 @@ arduino.on("ready", function() {
 				}
 			}
 		}
-
-	currentControllerState = controller.result;
-	});
- 
-	this.loop(3, function() {
 		
 		if (motors[0].speed > 0) {
 			stepper0.cw().step(1, function() {
