@@ -1,13 +1,6 @@
 var Asteroid = require("asteroid");
 var five = require("johnny-five");
 
-var SerialPort = require("serialport").SerialPort;
-var serialPort = new SerialPort('\\\\.\\COM3',{baudrate: 9600}, true);
-
-serialPort.on ('open', function () {
-	console.log("Open");
-});
-
 // Connect to the OpenWall Meteor backend
 var OpenWall = new Asteroid("localhost:3000");
 var collection = OpenWall.getCollection("controller");

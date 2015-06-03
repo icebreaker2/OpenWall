@@ -4,7 +4,7 @@ Meteor.startup(function () {
   
   //Create default admin
   if (Meteor.users.find().count() === 0) {
-      Accounts.createUser({email: 'openwall@jumax.net', password: 'test'}); //Set custom password
+      Accounts.createUser({email: 'openwall@jumax.net', password: ''}); //Set custom password
   }
 
   //Don't allow more users
