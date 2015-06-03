@@ -136,6 +136,10 @@ arduino.on("ready", function() {
 				
 					if (finish1) {
 						OpenWall.call("movingToStartCompleted");
+						// turn the leds off for a new game
+						led1.off();
+						led2.off();
+						led3.off();
 					} else {
 						finish0 = true;
 					}
@@ -153,15 +157,14 @@ arduino.on("ready", function() {
 					
 					if (finish0) {
 						OpenWall.call("movingToStartCompleted");
+						// turn the leds off for a new game
+						led1.off();
+						led2.off();
+						led3.off();
 					} else {
 						finish1 = true;
 					}
 				});
-
-				// turn the leds off for a new game
-				led1.off();
-				led2.off();
-				led3.off();
 
 			}
 		}
