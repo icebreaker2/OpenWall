@@ -105,6 +105,16 @@ Meteor.methods({
 				$set: {calibrateMaxHeight: time}
 			});
 		}
+	},
+	removeMaxHeight: function () {
+		var time = new Date();
+		time = time.getTime();
+		//User logged in?
+		if (this.userId) {
+			controller.update("controller", {
+				$set: {removeMaxHeight: time}
+			});
+		}
 	}
 
 });

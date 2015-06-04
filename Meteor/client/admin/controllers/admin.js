@@ -83,7 +83,11 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 
 	$scope.calibrateMaxHeight = function (){
 		Meteor.call("calibrateMaxHeight");
-	}
+	};
+
+	$scope.removeMaxHeight = function () {
+		Meteor.call("removeMaxHeight");
+	};
 
 	//Function is used to filter the current players from the users list
 	$scope.userIsPlaying = function(item) {

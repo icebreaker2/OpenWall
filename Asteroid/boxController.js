@@ -101,6 +101,11 @@ arduino.on("ready", function() {
 			motors[1].stepsForMaxHeight = motors[1].stepsFromStart;
 		}
 
+		if (currentControllerState.removeMaxHeight != controller.result.removeMaxHeight) {
+			motors[0].stepsForMaxHeight = '';
+			motors[1].stepsForMaxHeight = '';
+		}
+
 		// change direction of the stepper-Rotation
 		if (currentControllerState.state1 != controller.result.state1) {
 			motors[0].speed = controller.result.state1 * (-1);
