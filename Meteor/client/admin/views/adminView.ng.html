@@ -1,25 +1,48 @@
+<!--User Forms-->
 <div class="container" ng-hide="$root.currentUser">
-  <form class="form-signin">
-    <h2 class="form-signin-heading">Einloggen</h2>
-    
-    <div class="alert alert-danger fade in" ng-show="authError">
-    	<button type="button" class="close" ng-click="authError = false">×</button>
-    	<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Fehlerhafte Nutzerdaten
-    </div>
-    
-    <input type="email" id="inputEmail" class="form-control" placeholder="E-Mail-Adresse" ng-model="email" required autofocus>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Passwort" ng-model="password" required>
-    <div class="checkbox">
-    </div>
-    <input type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" value="Anmelden">
-  </form>
 
-</div> <!-- /container -->
+	<!--Setup form-->
+	<div ng-show="controller.showBoxSetup">
+		<div class="alert alert-info fade in" ng-hide="hideAuthInfo">
+			<button type="button" class="close" ng-click="hideAuthInfo = true">×</button>
+			<span class="glyphicon glyphicon-info"></span>
+			<h4>Herzlich Willkommen bei OpenWall!</h4>
+			Dies ist das Admin-Interface. Damit wirklich nur berechtigte Personen die Nutzer freischalten können, solltest du jetzt das Admin-Passwort setzen. Du kannst das Passwort zurücksetzen, indem du <code>$ meteor reset</code> in der Konsole eingibst.
+		</div>
+		<form class="admin-form">
+			<h2 class="admin-form-heading">OpenWall Setup</h2>
+			
+			<input type="text" class="form-control" placeholder="Nutzername" ng-model="name" required autofocus>
+			<input type="password" class="form-control" placeholder="Passwort" ng-model="password" required>
+			<input type="submit" class="btn btn-lg btn-primary btn-block" ng-click="register()" value="Admin festlegen">
+		
+		</form>
+	</div>
 
+	<!--Login Form-->
+	<form class="admin-form" ng-hide="controller.showBoxSetup">
+		<h2 class="admin-form-heading">Einloggen</h2>
+		
+		<!--Login error-->
+		<div class="alert alert-danger fade in" ng-show="authError">
+			<button type="button" class="close" ng-click="authError = false">×</button>
+			<span class="glyphicon glyphicon-exclamation-sign"></span> Fehlerhafte Nutzerdaten
+		</div>
+		
+		<input type="text" class="form-control" placeholder="Nutzername" ng-model="name" required autofocus>
+		<input type="password" class="form-control" placeholder="Passwort" ng-model="password" required>
+		<input type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()" value="Anmelden">
+	</form>
+
+</div>
+
+
+<!--Admin Controls-->
 <div class="container" ng-show="$root.currentUser">
 	<div class="row">
 		<div class="controller col-md-6 col-md-offset-3">
 		
+			<!--Menu Bar-->
 			<div class="btn-group settings">
 				<button type="button" class="btn btn-success" ng-click="setMotor(1, 0); setMotor(2, 0); moveToStart(!controller.movingToStart)">
 					Fahre zum Start
@@ -42,6 +65,7 @@
 				</div>
 			</div>
 			
+			<!--Motor controls-->
 			<div class="motorController">
 				<span class="controlArrow glyphicon glyphicon-arrow-up" ng-mousedown="setMotor(1, 1);" ng-touchstart="setMotor(1, 1);" ng-mouseup="setMotor(1, 0);" ng-touchend="setMotor(1, 0);" ng-class="{'active' : controller.state1 == 1}"></span>
 				<span class="controlArrow glyphicon glyphicon-arrow-up" ng-mousedown="setMotor(2, 1);" ng-touchstart="setMotor(2, 1);" ng-mouseup="setMotor(2, 0);" ng-touchend="setMotor(2, 0);" ng-class="{'active' : controller.state2 == 1}"></span>
@@ -53,6 +77,7 @@
 				
 			</div>
 		
+			<!--The current players-->
 			<div class="actualPlayers">
 				<div class="btn-group btn-group-lg" ng-if="controller.player1">
 					<button class="btn btn-primary" disabled>
@@ -72,8 +97,7 @@
 				</div>
 			</div>
 			
-			{{connections}}
-			
+			<!--All available players-->
 			<table class="table" ng-show="(presence | filter:userIsPlaying).length > 0">
 				<thead>
 					<tr>

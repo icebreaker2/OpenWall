@@ -11,18 +11,26 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 	
 	$scope.login = function() {
 
-		Meteor.loginWithPassword($scope.email, $scope.password,
+		Meteor.loginWithPassword($scope.name, $scope.password,
 			function(error) {
 
 				if (error) {
 					$scope.authError = true;
 				} else {
-					$scope.email = null;
+					$scope.name = null;
 					$scope.password = null;
 					$scope.authError = false;
 				}
 			}
 		);
+	};
+	
+	$scope.register = function() {
+	
+		Accounts.createUser({
+			username: $scope.name,
+			password: $scope.password
+		});
 	};
 	
 	$scope.logout = function() {
