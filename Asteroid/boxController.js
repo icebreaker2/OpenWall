@@ -1,8 +1,16 @@
+// Import libs
 var Asteroid = require("asteroid");
 var five = require("johnny-five");
 
+// Get custom meteor port from node arguments
+if (process.argv[2]) {
+	var port = process.argv[2]
+} else {
+	var port = 3000; // Standard meteor port
+}
+
 // Connect to the OpenWall Meteor backend
-var OpenWall = new Asteroid("localhost:3000");
+var OpenWall = new Asteroid("localhost:" + port);
 var collection = OpenWall.getCollection("controller");
 var controller = collection.reactiveQuery({});
 OpenWall.on("connected", function() {
