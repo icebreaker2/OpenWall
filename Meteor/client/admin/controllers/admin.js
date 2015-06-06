@@ -27,7 +27,6 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 	};
 	
 	$scope.logout = function() {
-		alert("Logout");
 		Meteor.logout();
 	};
 	
