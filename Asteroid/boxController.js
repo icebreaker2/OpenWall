@@ -224,6 +224,5 @@ arduino.on("ready", function() {
 				});
 			}
 		}
-
 	});
 });

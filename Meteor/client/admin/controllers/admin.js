@@ -15,7 +15,6 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 			function(error) {
 
 				if (error) {
-					console.log(error)
 					$scope.authError = true;
 				} else {
 					$scope.email = null;
