@@ -136,6 +136,12 @@ body, html, .meteorBody {
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
+    -moz-animation: spin3 .7s infinite linear;
+}
+
+@-moz-keyframes spin3 {
+	from { -moz-transform: rotate(0deg); }
+	to { -moz-transform: rotate(360deg); }
 }
 
 @-webkit-keyframes spin2 {
