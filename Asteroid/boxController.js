@@ -22,8 +22,6 @@ var currentControllerState = {};
 var arduino = new five.Board();
 arduino.on("ready", function () {
 
-    var maxHeight = '';
-
     motors = [
         {
             stepPin: 3,
@@ -31,14 +29,14 @@ arduino.on("ready", function () {
             stepsFromStart: 0,
             stepsForCheckpoint1: 0,
             stepsForCheckpoint2: 0,
-            stepsForCheckpoint3: 0,
+            stepsForCheckpoint3: 0
         }, {
             stepPin: 12,
             dirPin: 13,
             stepsFromStart: 0,
             stepsForCheckpoint1: 0,
             stepsForCheckpoint2: 0,
-            stepsForCheckpoint3: 0,
+            stepsForCheckpoint3: 0
         }
     ];
 
@@ -60,7 +58,9 @@ arduino.on("ready", function () {
     });
 
     // radius for the checkPoint in steps relative to the stepperMotor
-    var radius = stepper1.stepsPerRev * 0.5;
+    var radius = stepper1.stepsPerRev * 2;
+
+    var maxHeight = '';
 
     // Checkpoint LED's
     var led1 = new five.Led(6);
