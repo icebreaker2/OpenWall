@@ -178,15 +178,18 @@ arduino.on("ready", function () {
     this.loop(3, function () {
 
         // check for checkpoints reached by the player
-        if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint1 - radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1 + radius) { // first stepper is in line
-            if (motors[1].stepsFromStart >= motors[1].stepsForCheckpoint1 - radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1 + radius) { // second stepper is in line to
+        if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint1 - radius && motors[1].stepsFromStart >= motors[1].stepsForCheckpoint1 - radius) { // first stepper is in line
+            console.log('I passed this stage');
+            if (motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1 + radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1 + radius) { // second stepper is in line to
                 // stepper is in Checkpoint1-Area
+                console.log('LED ON');
                 led1.on();
             }
         }
 
-        if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint2 - radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint2 + radius) { // first stepper is in line
-            if (motors[1].stepsFromStart >= motors[1].stepsForCheckpoint2 - radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint2 + radius) { // second stepper is in line to
+        if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint2 - radius && motors[1].stepsFromStart >= motors[1].stepsForCheckpoint2 - radius) { // first stepper is in line
+            console.log('I passed this stage');
+            if (motors[0].stepsFromStart <= motors[0].stepsForCheckpoint2 + radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint2 + radius) { // second stepper is in line to
                 if (led1.isOn()) {
                     // stepper is in Checkpoint2-Area and previous checkedPoints has been passed
                     led2.on();
@@ -194,8 +197,9 @@ arduino.on("ready", function () {
             }
         }
 
-        if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint3 - radius && motors[0].stepsFromStart <= motors[0].stepsForCheckpoint3 + radius) { // first stepper is in line
-            if (motors[1].stepsFromStart >= motors[1].stepsForCheckpoint3 - radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint3 + radius) { // second stepper is in line to
+        if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint3 - radius && motors[1].stepsFromStart >= motors[1].stepsForCheckpoint3 - radius) { // first stepper is in line
+            console.log('I passed this stage');
+            if (motors[0].stepsFromStart <= motors[0].stepsForCheckpoint3 + radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint3 + radius) { // second stepper is in line to
                 if (led2.isOn()) {
                     // stepper is in Checkpoint3-Area and previous checkedPoints has been passed
                     led3.on();
@@ -208,10 +212,10 @@ arduino.on("ready", function () {
                 motors[0].stepsFromStart--;
             });
         } else if (motors[0].speed < 0) {
-        	if (motors[0].stepsFromStart + motors[1].stepsFromStart <= maxHeight || maxHeight == '') {
+            if (motors[0].stepsFromStart + motors[1].stepsFromStart <= maxHeight || maxHeight == '') {
                 stepper0.ccw().step(1, function () {
-               		motors[0].stepsFromStart++;
-            	});
+                    motors[0].stepsFromStart++;
+                });
             }
         }
 
@@ -221,12 +225,12 @@ arduino.on("ready", function () {
                 motors[1].stepsFromStart--;
             });
         } else if (motors[1].speed < 0) {
-        	if (motors[0].stepsFromStart + motors[1].stepsFromStart <= maxHeight || maxHeight == '') {
-         	   stepper1.ccw().step(1, function () {
-         	       motors[1].stepsFromStart++;
-          	  });
-          	}
+            if (motors[0].stepsFromStart + motors[1].stepsFromStart <= maxHeight || maxHeight == '') {
+                stepper1.ccw().step(1, function () {
+                    motors[1].stepsFromStart++;
+                });
+            }
         }
     });
-    
+
 });
