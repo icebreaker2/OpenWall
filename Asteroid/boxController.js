@@ -90,7 +90,13 @@ arduino.on("ready", function () {
         }
 
         if (currentControllerState.calibrateCheckPoint1 != controller.result.calibrateCheckPoint1) {
+<<<<<<< HEAD
             motors[0].stepsForCheckpoint1 = motors[0].stepsFromStart;
+=======
+            console.log('StepsFromStart' + motors[0].stepsFromStart);
+            motors[0].stepsForCheckPoint1 = motors[0].stepsFromStart;
+            console.log('StepsFromStartCheckpoint' + motors[0].stepsForCheckpoint1);
+>>>>>>> origin/master
             motors[1].stepsForCheckpoint1 = motors[1].stepsFromStart;
         }
 
