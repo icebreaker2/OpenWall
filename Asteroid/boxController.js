@@ -182,7 +182,7 @@ arduino.on("ready", function () {
         currentControllerState = controller.result;
     });
 
-    this.loop(1, function () {
+    this.loop(3, function () {
     
     	//console.log("Motor0 StepsFromStart: " + motors[0].stepsFromStart + "CP1: " + (motors[0].stepsForCheckpoint1 - radius));
     
