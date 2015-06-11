@@ -104,7 +104,7 @@ arduino.on("ready", function () {
         }
 
         if (currentControllerState.calibrateMaxHeight != controller.result.calibrateMaxHeight) {
-            maxHeight = motrs[0].stepsFromStart + motor[1].stepsFromStart
+            maxHeight = motors[0].stepsFromStart + motors[1].stepsFromStart
         }
 
         if (currentControllerState.removeMaxHeight != controller.result.removeMaxHeight) {
@@ -203,29 +203,30 @@ arduino.on("ready", function () {
             }
         }
 
-        if (motors[0].stepsFromStart + motors[1].stepsFromStart < maxHeight || maxHeight == '') {
-
-            if (motors[0].speed > 0) {
-                stepper0.cw().step(1, function () {
-                    motors[0].stepsFromStart--;
-                });
-            } else if (motors[0].speed < 0) {
+        if (motors[0].speed > 0) {
+            stepper0.cw().step(1, function () {
+                motors[0].stepsFromStart--;
+            });
+        } else if (motors[0].speed < 0) {
+        	if (motors[0].stepsFromStart + motors[1].stepsFromStart <= maxHeight || maxHeight == '') {
                 stepper0.ccw().step(1, function () {
-                    motors[0].stepsFromStart++;
-                });
-            }
-
-
-            if (motors[1].speed > 0) {
-                stepper1.cw().step(1, function () {
-                    motors[1].stepsFromStart--;
-                });
-            } else if (motors[1].speed < 0) {
-                stepper1.ccw().step(1, function () {
-                    motors[1].stepsFromStart++;
-                });
+               		motors[0].stepsFromStart++;
+            	});
             }
         }
 
+
+        if (motors[1].speed > 0) {
+            stepper1.cw().step(1, function () {
+                motors[1].stepsFromStart--;
+            });
+        } else if (motors[1].speed < 0) {
+        	if (motors[0].stepsFromStart + motors[1].stepsFromStart <= maxHeight || maxHeight == '') {
+         	   stepper1.ccw().step(1, function () {
+         	       motors[1].stepsFromStart++;
+          	  });
+          	}
+        }
     });
+    
 });
