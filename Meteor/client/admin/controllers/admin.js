@@ -72,10 +72,6 @@ angular.module("OpenWall").controller("adminCtrl", ["$scope", "$meteor", "md5", 
 	};
 
 	$scope.calibrateCheckPoint1 = function () {
-		$meteor.object(controller, 'controller', false);
-
-		$meteor
-
 		Meteor.call("calibrateCheckPoint1");
 	};
 

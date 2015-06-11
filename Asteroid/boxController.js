@@ -18,6 +18,7 @@ OpenWall.on("connected", function () {
 });
 
 var currentControllerState = {};
+var currentLedState = 0;
 
 var arduino = new five.Board();
 arduino.on("ready", function () {
@@ -58,7 +59,7 @@ arduino.on("ready", function () {
     });
 
     // radius for the checkPoint in steps relative to the stepperMotor
-    var radius = stepper1.stepsPerRev * 2;
+    var radius = 300;
 
     var maxHeight = '';
 
@@ -89,17 +90,17 @@ arduino.on("ready", function () {
         }
 
         if (currentControllerState.calibrateCheckPoint1 != controller.result.calibrateCheckPoint1) {
-            motors[0].stepsForCheckPoint1 = motors[0].stepsFromStart;
+            motors[0].stepsForCheckpoint1 = motors[0].stepsFromStart;
             motors[1].stepsForCheckpoint1 = motors[1].stepsFromStart;
         }
 
         if (currentControllerState.calibrateCheckPoint2 != controller.result.calibrateCheckPoint2) {
-            motors[0].stepsForCheckPoint2 = motors[0].stepsFromStart;
+            motors[0].stepsForCheckpoint2 = motors[0].stepsFromStart;
             motors[1].stepsForCheckpoint2 = motors[1].stepsFromStart;
         }
 
         if (currentControllerState.calibrateCheckPoint3 != controller.result.calibrateCheckPoint3) {
-            motors[0].stepsForCheckPoint3 = motors[0].stepsFromStart;
+            motors[0].stepsForCheckpoint3 = motors[0].stepsFromStart;
             motors[1].stepsForCheckpoint3 = motors[1].stepsFromStart;
         }
 
@@ -143,6 +144,9 @@ arduino.on("ready", function () {
                         led1.off();
                         led2.off();
                         led3.off();
+                        
+                        currentLedState = 0;
+                        
                     } else {
                         finish0 = true;
                     }
@@ -164,6 +168,9 @@ arduino.on("ready", function () {
                         led1.off();
                         led2.off();
                         led3.off();
+                        
+                        currentLedState = 0;
+                        
                     } else {
                         finish1 = true;
                     }
@@ -176,21 +183,22 @@ arduino.on("ready", function () {
     });
 
     this.loop(3, function () {
-
+    
+    	//console.log("Motor0 StepsFromStart: " + motors[0].stepsFromStart + "CP1: " + (motors[0].stepsForCheckpoint1 - radius));
+    
         // check for checkpoints reached by the player
-        if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint1 - radius && motors[1].stepsFromStart >= motors[1].stepsForCheckpoint1 - radius) { // first stepper is in line
-            console.log('I passed this stage');
+        if (motors[0].stepsFromStart >= (motors[0].stepsForCheckpoint1 - radius) && motors[0].stepsFromStart <= (motors[0].stepsForCheckpoint1 + radius)) { // first stepper is in line
+        
             if (motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1 + radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1 + radius) { // second stepper is in line to
                 // stepper is in Checkpoint1-Area
-                console.log('LED ON');
                 led1.on();
+                currentLedState = 1;
             }
         }
 
         if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint2 - radius && motors[1].stepsFromStart >= motors[1].stepsForCheckpoint2 - radius) { // first stepper is in line
-            console.log('I passed this stage');
             if (motors[0].stepsFromStart <= motors[0].stepsForCheckpoint2 + radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint2 + radius) { // second stepper is in line to
-                if (led1.isOn()) {
+                if (currentLedState = 1) {
                     // stepper is in Checkpoint2-Area and previous checkedPoints has been passed
                     led2.on();
                 }
@@ -198,9 +206,8 @@ arduino.on("ready", function () {
         }
 
         if (motors[0].stepsFromStart >= motors[0].stepsForCheckpoint3 - radius && motors[1].stepsFromStart >= motors[1].stepsForCheckpoint3 - radius) { // first stepper is in line
-            console.log('I passed this stage');
             if (motors[0].stepsFromStart <= motors[0].stepsForCheckpoint3 + radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint3 + radius) { // second stepper is in line to
-                if (led2.isOn()) {
+                if (currentLedState = 2) {
                     // stepper is in Checkpoint3-Area and previous checkedPoints has been passed
                     led3.on();
                 }
