@@ -10,7 +10,7 @@ Auf einem Raspberry Pi der 1. Generation ist die Ausführung auch möglich, jedo
 ## Meteor
 Dieser Ordner enthält die MeteorJS-Applikation. [MeteorJS](http://meteor.com) ist eine OpenSource-App-Plattform auf der Basis von NodeJS. MeteorJS muss auf dem Rechner installiert sein (verfügbar für Linux, Mac und Windows).
 
-Der Server wird (im Ordner Meteor) gestartet per (Stadard-Port 3000):
+Der Server kann im Ordner Meteor gestartet werden per (Stadard-Port 3000):
 ```
 $ meteor
 ```
