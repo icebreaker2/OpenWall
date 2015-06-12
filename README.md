@@ -35,10 +35,10 @@ $ npm install johnny-five
 Zum Starten muss Folgendes im Ordner Asteroid (in einem neuen Terminal-Fenster) ausgeführt werden:
 
 ```
-$ npm node boxController.js
+$ node boxController.js
 ```
 
 oder um direkt auf Port 80 zu starten:
 ```
-$ npm node boxController.js 80
+$ node boxController.js 80
 ```
