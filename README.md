@@ -1,6 +1,6 @@
 # OpenWall
 Hier entsteht die Softwarebasis für das OpenWall-Projekt. Der Code läuft auch auf einem Raspberry Pi 2.<br>
-Siehe (für NodeJS, npm und MeteorJS) hierzu https://github.com/4commerce-technologies-AG/meteor und http://meteor-universal.tumblr.com/post/111851816699/install-meteor-universal-on-raspberry-pi-2
+Für die Installation siehe (NodeJS, npm und MeteorJS) hierzu https://github.com/4commerce-technologies-AG/meteor und http://meteor-universal.tumblr.com/post/111851816699/install-meteor-universal-on-raspberry-pi-2
 
 ## Meteor
 Dieser Ordner enthält die MeteorJS-Applikation. [MeteorJS](http://meteor.com) ist eine OpenSource-App-Plattform auf der Basis von NodeJS. MeteorJS muss auf dem Rechner installiert sein (verfügbar für Linux, Mac und Windows).
