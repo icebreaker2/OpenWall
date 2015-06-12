@@ -27,7 +27,7 @@ $ npm install asteroid
 $ npm install johnny-five
 ```
 
-Zum Starten, muss Folgendes im Ordner Asteroid (in einem neuen Terminal-Fenster) ausgeführt werden:
+Zum Starten muss Folgendes im Ordner Asteroid (in einem neuen Terminal-Fenster) ausgeführt werden:
 
 ```
 $ npm node boxController.js
