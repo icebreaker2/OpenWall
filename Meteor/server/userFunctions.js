@@ -8,12 +8,12 @@ Meteor.methods({
 		});
 	},
 	setMotor: function(motorNr, level) {
-		
+
 		var currentController = controller.findOne();
-		
+
 		//Logged in or a current player?
 		if (this.userId || currentController.player1 == this.connection.id || currentController.player2 == this.connection.id) {
-			
+
 			if (motorNr == 1) {
 				controller.update("controller", {
 				  $set: {state1: level}
@@ -24,13 +24,13 @@ Meteor.methods({
 				});
 			}
 		}
-		
+
 	},
 	setPlayer: function(playerNr, user) {
-		
+
 		//User logged in?
 		if (this.userId) {
-			
+
 			if (playerNr == 1) {
 				controller.update("controller", {
 				  $set: {player1: user}
@@ -54,7 +54,7 @@ Meteor.methods({
 	/**calibrate different variables and db-entries to recognise changes on those
 	 * the time is a variable to recognise newer entries and making validations in the controller possible**/
 	calibrateStart: function() {
-	
+
 		var time = new Date();
 		time = time.getTime();
 

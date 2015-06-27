@@ -144,9 +144,9 @@ arduino.on("ready", function () {
                         led1.off();
                         led2.off();
                         led3.off();
-                        
+
                         currentLedState = 0;
-                        
+
                     } else {
                         finish0 = true;
                     }
@@ -168,9 +168,9 @@ arduino.on("ready", function () {
                         led1.off();
                         led2.off();
                         led3.off();
-                        
+
                         currentLedState = 0;
-                        
+
                     } else {
                         finish1 = true;
                     }
@@ -183,12 +183,12 @@ arduino.on("ready", function () {
     });
 
     this.loop(4, function () {
-    
+
     	//console.log("Motor0 StepsFromStart: " + motors[0].stepsFromStart + "CP1: " + (motors[0].stepsForCheckpoint1 - radius));
-    
+
         // check for checkpoints reached by the player
         if (motors[0].stepsFromStart >= (motors[0].stepsForCheckpoint1 - radius) && motors[0].stepsFromStart <= (motors[0].stepsForCheckpoint1 + radius)) { // first stepper is in line
-        
+
             if (motors[0].stepsFromStart <= motors[0].stepsForCheckpoint1 + radius && motors[1].stepsFromStart <= motors[1].stepsForCheckpoint1 + radius) { // second stepper is in line to
                 // stepper is in Checkpoint1-Area
                 led1.on();
