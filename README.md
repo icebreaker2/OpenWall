@@ -1,5 +1,9 @@
 # OpenWall
-Hier entsteht die Softwarebasis für das OpenWall-Projekt. Der Code läuft auch auf einem [Raspberry Pi 2](https://www.raspberrypi.org).<br>
+Dies ist die Softwarebasis für das OpenWall-Projekt.
+
+Informationen zum Projekt, sowie Bilder und Videos sind auf der [Jumax-Homepage](http://jumax.net/openwall) zu finden.
+
+Der Code läuft auch auf einem [Raspberry Pi 2](https://www.raspberrypi.org).<br>
 Für die Installation (von NodeJS und MeteorJS) siehe:
 
 * https://github.com/4commerce-technologies-AG/meteor
